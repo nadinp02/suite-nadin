@@ -10,17 +10,16 @@ $data_galeria_principal = [
 ];
 $galeria_principal = $contenidos->list($data_galeria_principal, 'es', true);
 
-$data_marcas_inicio = [
+$data_inicio = [
     "images" => true,
-    "filter" => ["contenidos.cod = 'marcas-inicio'"]
+    "filter" => ["contenidos.area = 'inicio'"]
 ];
-$marcas_inicio = $contenidos->list($data_marcas_inicio, 'es', true);
+$inicio = $contenidos->list($data_inicio, 'es');
 
-$sobre_nosotros_inicio = $contenidos->list(["filter" => ["contenidos.cod = 'sobre-nosotros-inicio'"]], 'es', true);
-$preguntas_frecuentes_inicio = $contenidos->list(["images"=>true,"filter" => ["contenidos.cod = 'preguntas-frecuentes-inicio'"]], 'es', true);
-$preguntas_frecuentes = $contenidos->list(["filter" => ["contenidos.area = 'preguntas-frecuentes'"]], 'es');
+// $sobre_nosotros_inicio = $contenidos->list(["filter" => ["contenidos.cod = 'sobre-nosotros-inicio'"]], 'es', true);
+// $preguntas_frecuentes_inicio = $contenidos->list(["images"=>true,"filter" => ["contenidos.cod = 'preguntas-frecuentes-inicio'"]], 'es', true);
+$preguntas_frecuentes = $contenidos->list(["images"=>true, "filter" => ["contenidos.area = 'preguntas-frecuentes'"]], 'es');
 
-var_dump($preguntas_frecuentes);
 
 $template->themeInit();
 ?>
@@ -53,9 +52,9 @@ $template->themeInit();
 
             <div class="row" data-aos="zoom-in">
                 <?php
-                foreach ($marcas_inicio["images"] as $key => $item) { ?>
+                foreach ($inicio["marcas-inicio"]["images"] as $key => $item) { ?>
                     <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-                        <img src="<?= $item["url"] ?>" class="img-fluid" alt="<?= $marcas_inicio["data"]["titulo"] ?>">
+                        <img src="<?= $item["url"] ?>" class="img-fluid" alt="<?= $inicio["marcas-inicio"]["data"]["titulo"] ?>">
                     </div>
                 <?php } ?>
 
@@ -69,9 +68,9 @@ $template->themeInit();
     <section id="about" class="about">
         <div class="container" data-aos="fade-up">
             <div class="section-title">
-                <h2><?= $sobre_nosotros_inicio["data"]["titulo"]?></h2>
+                <h2><?= $inicio["sobre-nosotros-inicio"]["data"]["titulo"]?></h2>
             </div>
-            <?=$sobre_nosotros_inicio["data"]["contenido"]?>
+            <?=$inicio["sobre-nosotros-inicio"]["data"]["contenido"]?>
             
         </div>
     </section>
@@ -86,28 +85,42 @@ $template->themeInit();
                 <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
 
                     <div class="content">
-                        <h3><?= $preguntas_frecuentes_inicio["data"]["titulo"]?></h3>
-                        <h4><?= $preguntas_frecuentes_inicio["data"]["subtitulo"]?></h4>
-                        <p><?= $preguntas_frecuentes_inicio["data"]["contenido"]?></p>
+                        <h3><?= $preguntas_frecuentes["faq-inicio"]["data"]["titulo"]?></h3>
+                        <h4><?= $preguntas_frecuentes["faq-inicio"]["data"]["subtitulo"]?></h4>
+                        <p>
+                            <?= $preguntas_frecuentes["faq-inicio"]["data"]["contenido"]?>
+                        </p>
                     </div>
 
                     <div class="accordion-list">
                         <ul>
+                        <?php 
+                        $i =1;
+                        foreach ($preguntas_frecuentes as $key => $item){ 
+                            if($key == 'faq-inicio') continue;
+                            ?>
                             <li>
-                                <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>01</span> Non consectetur a erat nam at lectus urna duis? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                                <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
+                                <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-<?= $i ?>">
+                                <span></span><?= $i ?>
+                                <?= $item["data"]["titulo"]?>
+                                <i class="bx bx-chevron-down icon-show"></i>
+                                <i class="bx bx-chevron-up icon-close"></i></a>
+                                <div id="accordion-list-<?= $i ?>" class="collapse" data-bs-parent=".accordion-list">
                                     <p>
-                                        Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+                                        <?= $item["data"]["contenido"]?>
                                     </p>
                                 </div>
                             </li>
+                        <?php 
+                    $i++;
+                    } ?>
 
                         </ul>
                     </div>
 
                 </div>
 
-                <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("<?=$preguntas_frecuentes_inicio["images"][0]["url"]?>");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
+                <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("<?=$preguntas_frecuentes["faq-inicio"]["images"][0]["url"]?>");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
             </div>
 
         </div>
