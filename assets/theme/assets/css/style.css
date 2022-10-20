@@ -533,7 +533,7 @@ h6 {
 # Sections General
 --------------------------------------------------------------*/
 section {
-  padding: 60px 0;
+  padding: 20px 0;
   overflow: hidden;
 }
 
@@ -1094,6 +1094,8 @@ section {
   list-style: none;
   padding: 0;
   font-size: 15px;
+  list-style-type: disc;
+  padding-left: 1rem;
 }
 
 .portfolio-details .portfolio-info ul li+li {

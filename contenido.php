@@ -31,7 +31,7 @@ $template->themeInit();
 ?>
 <main id="main">
     <section id="breadcrumbs" class="breadcrumbs">
-        <div class="container">
+        <div class="container mt-4">
             <ol>
                 <li><a href="index.html">Home</a></li>
                 <li><?= $contenidoData["data"]["titulo"] ?></li>
@@ -61,9 +61,12 @@ $template->themeInit();
                <div class="col-lg-4">
                     <div class="portfolio-info">
                         <h3><?= $contenidoData["data"]["titulo"] ?></h3>
+                        <p>
+                        <?= strip_tags($contenidoData["data"]["contenido"],["<ul>","<li>"]); ?>
+                        </p>
                     </div>
                     <div class="portfolio-description">
-                        <?= strip_tags($contenidoData["data"]["contenido"]); ?>
+
                     </div>
                 </div>
              </div>

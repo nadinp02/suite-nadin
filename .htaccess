@@ -24,10 +24,9 @@ RewriteRule ^pedido/(.*)$ ./api/cart/pre-cart.php?cod=$1
 RewriteRule ^sitemap/(.*)$ ./sitemap.php?idioma=$1 [QSA,L]
 
 #Contenidos
-RewriteRule ^c/(.*)/p/(.*)$ ./contenidos.php?area=$1&pagina=$2 [QSA,L]
-RewriteRule ^c/(.*)/(.*)/(.*)$ ./contenido.php?area=$1&titulo=$2&cod=$3 [QSA,L]
-RewriteRule ^c/(.*)$ ./contenidos.php?area=$1 [QSA,L]
-RewriteRule ^test/(.*)$ ./contenidos.php?area=$1 [QSA,L]
+RewriteRule ^c/(.*)/p/(.*)$ ./contenidos.php?area=$1&pagina=$2 [QSA,L] #c/novedades/p/1
+RewriteRule ^c/(.*)/(.*)/(.*)$ ./contenido.php?area=$1&titulo=$2&cod=$3 [QSA,L] #c/novedades/hola-mundo/cod
+RewriteRule ^c/(.*)$ ./contenidos.php?area=$1 [QSA,L] #c/novedades
 
 #Productos
 RewriteRule ^producto/(.*)/(.*)$ ./producto.php?cod=$2

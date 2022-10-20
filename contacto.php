@@ -7,6 +7,8 @@ $f = new Clases\PublicFunction();
 $contenidos = new Clases\Contenidos();
 $config = new Clases\Config();
 
+$datosContacto = $config->viewContact();
+
 $captchaData = $config->viewCaptcha();
 #Se carga la configuración de email
 $data = [
@@ -19,80 +21,78 @@ $template->set("description", "Envianos tus dudas y nosotros te asesoramos");
 $template->set("keywords", "");
 $template->themeInit();
 ?>
-<div class="page-title-area pt-150 pb-55">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="page-titel-detalis  ">
-                    <div class="section-title">
-                        <h2><?= $_SESSION["lang-txt"]["general"]["contacto"] ?></h2>
-                    </div>
-                    <div class="page-bc">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="<?= URL ?>"><?= $_SESSION["lang-txt"]["general"]["inicio"] ?></a></li>
-                                <li class="breadcrumb-item position-relative active" aria-current="page"><a href="<?= CANONICAL ?>"><?= $_SESSION["lang-txt"]["general"]["contacto"] ?></a></li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="contact_us pt-110">
-    <div class="container">
-        <?= $contenidoContacto["info"]["data"]["contenido"] ?>
-    </div>
-</div>
-<div class="map-area">
-    <div class="container">
-        <?= $contenidoContacto["mapa"]["data"]["contenido"] ?>
-    </div>
-</div>
 
-<div class="contact-form-area pt-95 pb-20">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-8 col-lg-9 col-md-10">
-                <div class="contact-title text-center">
-                    <h3><?= $_SESSION["lang-txt"]["contacto"]["formulario_contacto"] ?></h3>
-                </div>
-            </div>
+<section id="contact" class="contact pt-100">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Contacto</h2>
+          <p><?= $contenidoContacto["encabezado"]["data"]["contenido"]?></p>
         </div>
-        <div id="response"></div>
-        <form class="contact-form-style" id="contactForm" data-url="<?= URL ?>" data-captcha="<?= $captchaData["data"]["captcha_key"] ?>" method="post">
-            <div class="row">
-                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="contact-input">
-                        <input name="nombre" id="f-name" placeholder="<?= $_SESSION['lang-txt']['usuarios']['nombre'] ?>*" type="text" required />
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="contact-input">
-                        <input name="apellido" id="l-name" placeholder="<?= $_SESSION['lang-txt']['usuarios']['apellido'] ?>*" type="text" required />
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="contact-input">
-                        <input name="email" id="email" placeholder="<?= $_SESSION['lang-txt']['usuarios']['email'] ?>*" type="email" required />
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="contact-input">
-                        <input id="phone" name="telefono" placeholder="<?= $_SESSION['lang-txt']['usuarios']['telefono'] ?>" type="number" required />
-                    </div>
-                </div>
-                <div class="col-lg-12" data-aos="fade-up" data-aos-delay="200">
-                    <div class="contact-input">
-                        <textarea name="mensaje" style="border-radius: 5px;" id="message" placeholder="<?= $_SESSION['lang-txt']['usuarios']['mensaje'] ?>*" required></textarea>
-                    </div>
-                    <input name="captcha-response" type="hidden" value="">
-                    <button class="g-recaptcha p-btn border-0 mt-75" id="sendContact" data-aos="fade-up" data-aos-delay="200" data-sitekey="<?= $captchaData["data"]["captcha_key"] ?>" data-callback="sendContact" data-action='submit' name="enviar"><?= $_SESSION['lang-txt']['contacto']['enviar'] ?></button>
-                </div>
+
+        <div class="row">
+
+          <div class="col-lg-5 d-flex align-items-stretch">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Ubicación:</h4>
+                <p><?= $datosContacto["data"]["domicilio"] . ', ' . $datosContacto["data"]["localidad"]. ', ' .$datosContacto["data"]["provincia"] . '. '?></p>
+              </div>
+
+              <div class="email">
+                <i class="bi bi-envelope"></i>
+                <h4>Email:</h4>
+                <p><?= $datosContacto["data"]["email"]?></p>
+              </div>
+
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>Call:</h4>
+                <p><?=$datosContacto["data"]["telefono"]?></p>
+              </div>
+              <iframe allowfullscreen="" frameborder="0" height="400" loading="lazy" referrerpolicy="no-referrer-when-downgrade" scrolling="no" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3404.5501178916593!2d-62.084385484680496!3d-31.426518903887064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95cb2818bece7675%3A0x325aecfa5720e84d!2sEstudio%20Rocha%20%26%20Asoc.!5e0!3m2!1ses!2sar!4v1666278583170!5m2!1ses!2sar" style="border:0;" width="100%"></iframe>
             </div>
-        </form>
-    </div>
-</div>
+
+          </div>
+          <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="name">Nombre</label>
+                  <input type="text" name="name" class="form-control" id="name" required>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="name">Apellido</label>
+                  <input type="text" class="form-control" name="apellido" id="apellido" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="name">Número de teléfono</label>
+                  <input type="text" name="name" class="form-control" id="name">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="name">Email</label>
+                  <input type="email" class="form-control" name="email" id="email" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name">Mensaje</label>
+                <textarea class="form-control" name="message" rows="10" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Cargando</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Tu mensaje se envio correctamente. Gracias!</div>
+              </div>
+              <div class="text-center"><button type="submit">Enviar</button></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
 
 <?php $template->themeEnd() ?>
